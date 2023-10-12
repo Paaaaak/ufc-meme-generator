@@ -1,0 +1,14 @@
+.meme_card {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.meme_card:hover {
+    opacity: 0.5;
+}
+
+.meme_card img {
+    width: 30vw; 
+    border-radius: 10px; 
+    border: 1px solid black;
+}
