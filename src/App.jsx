@@ -13,6 +13,7 @@ function App() {
   const getMemeUrls = async () => {
     try {
       const memeUrls = await axios.get(url);
+      console.log(memeUrls.data.data.memes);
       setData(memeUrls.data.data.memes);
     }
     catch (error) {
@@ -27,7 +28,11 @@ function App() {
   return (
     <div className="App">
       <h1>Meme Generator</h1>
-      <div style={{display: 'flex', flexWrap: 'wrap'}}>
+      <form>
+        <input type='text' placeholder='Search memes'></input>
+        <button>Search</button>
+      </form>
+      <div className='meme-container'>
         {data && data.map((item, index) => {
           return <MemeCard img={item}></MemeCard>
         })}

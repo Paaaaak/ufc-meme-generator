@@ -1,0 +1,37 @@
+.App {
+    padding: 20px 50px;
+    box-sizing: border-box;
+    background-color: black;
+    color: white;
+}
+
+.meme-container {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    column-gap: 20px;
+    columns: 5;
+}
+
+@media (max-width: 1600px) {
+    .meme-container {
+        columns: 4;
+    }
+}
+
+@media (max-width: 1280px) {
+    .meme-container {
+        columns: 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .meme-container {
+        columns: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .meme-container {
+        columns: 1;
+    }
+}

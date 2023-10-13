@@ -5,6 +5,7 @@ const MemeCard = (props) => {
   return (
     <div className='meme_card'>
       <img key={props.img} src={props.img.url}></img>
+      <span>{props.img.name}</span>
     </div>
   );
 };
