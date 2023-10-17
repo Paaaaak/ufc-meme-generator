@@ -19,6 +19,7 @@ const Main = () => {
         }
     };
 
+    // 페이지 처음 렌더링됐을시 랜덤 Meme 불러오기
     useEffect(() => {
         getMemeUrls();
     }, []);
