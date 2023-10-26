@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MemeCard from '../components/MemeCard';
+import { createPortal } from 'react-dom';
+import Edit from './Edit';
 
 const Main = () => {
     const [data, setData] = useState([]);
@@ -29,7 +31,7 @@ const Main = () => {
     }
 
     return (
-        <div>
+        <div className='main'>
             <form onSubmit={searchHandler}>
                 <input type='text' placeholder='Search memes'></input>
                 <button>Search</button>

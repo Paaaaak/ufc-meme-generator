@@ -1,10 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import Text from '../components/Text';
-import { exportComponentAsJPEG } from 'react-component-export-image';
+import { exportComponentAsPNG } from 'react-component-export-image';
+import { createPortal } from 'react-dom';
 
-const Edit = () => {
-  const [params] = useSearchParams();
+const Edit = (props) => {
   const [count, setCount] = useState(0);
 
   const memeRef = useRef();
@@ -14,21 +13,39 @@ const Edit = () => {
   }
 
   const saveHandler = (e) => {
-    exportComponentAsJPEG(memeRef);
+    console.log(memeRef);
+    exportComponentAsPNG(memeRef);
+  }
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
+
+  const backdropClickHandler = () => {
+    console.log('Backdrop clicked!');
+    props.closeEditor(false);
   }
 
   return (
     <div>
-      <div ref={memeRef} className='meme' style={{width: '500px', height: '100%'}}>
-        <img src={params.get('url')} style={{width: '100%', height: '100%'}}></img>
-        {
-          Array(count).fill(0).map((e) => {
-            return <Text></Text>
-          })
-        }
-      </div>
-      <button onClick={addTextHandler}>Add Text</button>
-      <button onClick={(e) => saveHandler(e)}>Save</button>
+      {createPortal(
+        <div className='backdrop' onClick={backdropClickHandler}></div>,
+        document.getElementById('backdrop-root'))}
+      {createPortal(
+        <div className='overlay'>
+          <h1>{props.sp.name}</h1>
+          <div ref={memeRef} className='meme' style={{ width: '500px', height: '100%' }}>
+            <img src={props.sp.url} style={{ width: '100%', height: '100%' }}></img>
+            {
+              Array(count).fill(0).map((e) => {
+                return <Text></Text>
+              })
+            }
+          </div>
+          <button onClick={addTextHandler}>Add Text</button>
+          <button onClick={(e) => saveHandler(e)}>Save</button>
+        </div>, 
+        document.getElementById('modal-root'))}
     </div>
   )
 }

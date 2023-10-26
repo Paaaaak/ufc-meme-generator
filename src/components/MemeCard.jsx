@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import React from 'react';
 import './MemeCard.css';
-import { useNavigate } from 'react-router-dom';
+import Edit from '../pages/Edit';
 
 const MemeCard = (props) => {
-  const navigate = useNavigate();
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   const mouseOverHandler = (e) => {
@@ -17,14 +16,25 @@ const MemeCard = (props) => {
     setIsMouseOver(false);
   }
 
+  const [showEditor, isShowEditor] = useState(false);
+
+  const memeCardClickHandler = () => {
+    console.log('Meme card clicked!');
+      isShowEditor(true);
+      setIsMouseOver(false);
+  };
+  
   return (
     <div
       className='meme-card'
       onMouseOver={(e) => mouseOverHandler(e)}
-      onMouseOut={(e) => mouseOutHandler(e)}
-      onClick={(e) => navigate(`/edit?url=${props.img.url}`)}>
-      <div className='meme-card__image'>
+      onMouseOut={(e) => mouseOutHandler(e)}>
+      {showEditor && (
+        <Edit sp={props.img} closeEditor={isShowEditor}></Edit>
+      )}
+      <div className='meme-card__image' onClick={memeCardClickHandler}>
         <img key={props.img} src={props.img.url}></img>
+        {/* 이미지 위에 커서가 올라갔을 경우 아래 문구 보여주기 */}
         {isMouseOver && (
           <div className='meme-card__image-edit'>
             <span>Click to edit</span>
